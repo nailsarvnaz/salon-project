@@ -17,7 +17,7 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["vite.config.ts"],
+  "include": ["src"],
+  "exclude": ["vite.config.ts", "node_modules", "dist"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
