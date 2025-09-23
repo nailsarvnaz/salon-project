@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>آموزش و خدمات ناخن سروناز - رزرو نوبت</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;800;900&display=swap');
+      
+      :root {
+        --c1: #f9a8d4; /* pink-300 */
+        --c2: #c084fc; /* purple-400 */
+        --c3: #67e8f9; /* cyan-300 */
+        --c4: #ef4444; /* red-500 */
+        --dark-bg: #11071F;
+        --dark-bg2: #1a0b2e;
+        --glow-color: #c084fc;
+      }
+
+      body {
+        font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--dark-bg);
+        background: radial-gradient(ellipse at bottom, var(--dark-bg) 0%, #090412 100%);
+        overflow-x: hidden;
+      }
+
+      /* Animated gradient for title */
+      @keyframes gradient-x {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+      .animate-gradient-x {
+        background-size: 200% 200%;
+        animation: gradient-x 5s ease infinite;
+      }
+      
+       @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      .fade-in-up {
+        animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      }
+      
+      .animate-fade-in-up-sm {
+        animation: fadeInUp 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      }
+
+      /* Notification Progress Bar */
+      @keyframes progress {
+        from { width: 100%; }
+        to { width: 0%; }
+      }
+      .animate-progress {
+        animation: progress 59.5s linear forwards;
+      }
+
+      /* BUBBLE STYLES - Iridescent/Glossy */
+      .service-bubble-container {
+          position: relative;
+          width: 120px;
+          height: 120px;
+          cursor: pointer;
+          -webkit-tap-highlight-color: transparent;
+          filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.3));
+      }
+
+      .service-bubble {
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          padding: 1rem;
+          font-weight: bold;
+          color: white;
+          background: radial-gradient(circle at 50% 120%, #f472b6, #c026d3 80%);
+          border: 2px solid rgba(255,255,255,0.2);
+          box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3), 0 10px 20px rgba(0, 0, 0, 0.4);
+          transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+          animation: float 6s ease-in-out infinite;
+      }
+      .service-bubble::before {
+          content: '';
+          position: absolute;
+          top: 5%; left: 10%; width: 80%; height: 80%;
+          border-radius: 50%;
+          background: radial-gradient(circle at 50% 0, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 60%);
+          transform: rotate(45deg);
+          transition: opacity 0.4s ease;
+      }
+
+      .service-bubble-container:hover .service-bubble {
+          transform: scale(1.05) translateY(-5px);
+          filter: brightness(1.2);
+          box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3), 0 15px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      @keyframes float {
+          0% { transform: translateY(0px) rotate(-3deg); }
+          50% { transform: translateY(-12px) rotate(3deg); }
+          100% { transform: translateY(0px) rotate(-3deg); }
+      }
+
+      /* Selected State */
+      .service-bubble.selected {
+          background: radial-gradient(circle at 50% 120%, #22d3ee, #0e7490 80%);
+          animation: none;
+          transform: scale(1.1);
+          filter: drop-shadow(0 0 15px var(--c3));
+      }
+      .service-bubble.selected::before { opacity: 0.5; }
+      .service-bubble.selected::after {
+          content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+          position: absolute; top: 10px; right: 10px;
+          font-size: 1.2rem; color: white;
+          text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+          animation: pop-in 0.3s ease-out 0.2s backwards;
+      }
+      @keyframes pop-in { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+      /* Pop Animation on Select */
+      .animate-pop-select {
+        animation: pop-select 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+      @keyframes pop-select {
+        0% { transform: scale(1.05); }
+        50% { transform: scale(1.15) rotate(5deg); }
+        100% { transform: scale(1.1) rotate(0deg); }
+      }
+
+      /* Floating Label Form Inputs */
+      .form-group .input-wrapper {
+          position: relative;
+      }
+      .form-group .form-input {
+          width: 100%;
+          padding: 1rem;
+          background-color: rgba(0,0,0,0.2);
+          border: 2px solid transparent;
+          border-radius: 0.5rem;
+          color: white;
+          transition: border-color 0.3s ease;
+      }
+      .form-group .form-input:focus {
+          outline: none;
+          border-color: var(--c2);
+          box-shadow: 0 0 15px rgba(192, 132, 252, 0.4);
+      }
+      .form-group .form-label {
+          position: absolute;
+          right: 1rem;
+          top: 1rem;
+          color: rgba(255,255,255,0.5);
+          pointer-events: none;
+          transition: all 0.2s ease-out;
+      }
+      .form-group .form-input:focus + .form-label,
+      .form-group .form-input:not(:placeholder-shown) + .form-label {
+          top: -0.65rem;
+          right: 0.75rem;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: var(--c2);
+          background: var(--dark-bg2);
+          padding: 0 0.25rem;
+      }
+
+      /* Error Message */
+      .error-message {
+        color: var(--c4); font-size: 0.8rem; font-weight: 600;
+        margin-top: 0.5rem; display: flex; align-items: center;
+        gap: 0.3rem; animation: slide-down-fade 0.3s ease-out forwards;
+      }
+      @keyframes slide-down-fade { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+      
+      /* Glowing effect for suggested time */
+      .suggested-time {
+        border-color: #10b981 !important;
+        animation: glow 1.5s infinite alternate;
+        box-shadow: 0 0 10px #10b981, 0 0 15px #10b981;
+      }
+       @keyframes glow { from { box-shadow: 0 0 5px #10b981, 0 0 10px #10b981; } to { box-shadow: 0 0 15px #10b981, 0 0 25px #10b981; } }
+
+      .suggestion-badge {
+        position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+        background-color: #10b981; color: white;
+        padding: 2px 8px; font-size: 0.65rem; font-weight: bold;
+        border-radius: 9999px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        white-space: nowrap; animation: badge-pulse 1.5s infinite alternate;
+      }
+      @keyframes badge-pulse { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.05); } }
+
+      /* Shimmer effect for logo */
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+      .shimmer-logo {
+        background: linear-gradient(to right, transparent 20%, rgba(255,255,255,0.3) 50%, transparent 80%);
+        background-size: 200% 100%;
+        animation: shimmer 4s infinite linear;
+      }
+
+      @keyframes slide-in-right {
+        from { opacity: 0; transform: translateX(-25px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      .animate-slide-in-right { animation: slide-in-right 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+      
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "vite": "https://aistudiocdn.com/vite@^7.1.7",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.0.3"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
